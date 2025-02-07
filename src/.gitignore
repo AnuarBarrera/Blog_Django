@@ -1,0 +1,67 @@
+# Entorno virtual
+venv/
+env/
+
+# Configuraciones de Python y Django
+*.py[cod]
+__pycache__/
+*.so
+*.log
+local_settings.py
+
+# Archivos de bases de datos
+*.sqlite3
+db.sqlite3-journal
+
+# Configuraciones de MongoDB
+
+# Archivos de configuración
+.env
+*.env
+config/local_settings.py
+
+# Archivos y directorios de IDE
+
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos estáticos en producción
+staticfiles/
+static/admin/
+
+# Dependencias de JavaScript
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Archivos de construcción
+*.egg-info/
+dist/
+build/
+
+# Archivos de logs
+logs/
+*.log
+
+# Archivos de caché
+*.cache
+
+# Específico de tu proyecto ESPN
+*.sportscache
+
+# Credenciales y tokens
+*.token
+*.secret
+
+# Archivos de documentación generados
+docs/_build/
+
+# Backups
+*.bak
+*.backup
+
+# Ignorar archivos de migración (opcional)
+migrations/
+!migrations/__init__.py
