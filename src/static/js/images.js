@@ -17,6 +17,7 @@ const fotos2 = [
   { url: "/static/images/image13.jpg", descripcion: "Foto 13" },
   { url: "/static/images/image14.jpg", descripcion: "Foto 14" },
   { url: "/static/images/image15.jpg", descripcion: "Foto 15" },
+  { url: "/static/images/image16.jpg", descripcion: "Foto 16" },
 ];
 
 // Funciones
