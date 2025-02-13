@@ -18,7 +18,6 @@ db.sqlite3-journal
 
 # Archivos de configuración
 .env
-*.env
 config/local_settings.py
 
 # Archivos y directorios de IDE
