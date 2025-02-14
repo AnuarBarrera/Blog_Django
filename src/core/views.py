@@ -20,9 +20,12 @@ def resultados_deportivos(request):
                     deporte=resultado['deporte'],
                     equipo_local=resultado['equipoLocal'],
                     equipo_visitante=resultado['equipoVisitante'],
+                    fecha=resultado.get('fecha'),
+                    estado=resultado.get('estado'),
                     defaults={
                         'resultado': resultado['resultado'],
-                        'en_vivo': resultado['enVivo']
+                        'en_vivo': resultado['enVivo'],
+                        'hora': resultado.get('hora', '')
                     }
                 )
             return JsonResponse({"status": "success"})
@@ -35,6 +38,20 @@ def resultados_deportivos(request):
             'equipo_local', 
             'equipo_visitante', 
             'resultado', 
-            'en_vivo'
+            'en_vivo',
+            'estado',
+            'fecha',
+            'hora'
         )
-        return JsonResponse(list(resultados), safe=False)
+        
+        resultados_formateados = [{
+            'deporte': r['deporte'],
+            'equipoLocal': r['equipo_local'],
+            'equipoVisitante': r['equipo_visitante'],
+            'resultado': r['resultado'],
+            'enVivo': r['en_vivo'],
+            'estado': r['estado'],
+            'fecha': r['fecha'],
+            'hora': r['hora']
+        } for r in resultados]
+        return JsonResponse(resultados_formateados, safe=False)

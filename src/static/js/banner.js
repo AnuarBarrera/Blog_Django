@@ -1,6 +1,5 @@
-import { obtenerResultadosDeportivos } from '/static/js/API_ESPN.js'
+import { obtenerResultadosDeportivos } from '/static/js/API_ESPN.js';
 
-// Configuración de la API
 function obtenerIconoDeporte(deporte) {
   const iconos = {
     soccer: '⚽',
@@ -12,121 +11,134 @@ function obtenerIconoDeporte(deporte) {
   return iconos[deporte] || iconos.default;
 }
 
-
-function actualizarBannerDeportivo(resultados) {
-  const carrusel = document.querySelector('.banner-deportivo .carrusel');
-  carrusel.innerHTML = '';
-  
-  if (!resultados || resultados.length === 0) {
-    const mensajeError = document.createElement('div');
-    mensajeError.className = 'partido mensaje-error';
-    mensajeError.innerHTML = `
-      <span class="deporte-icon">⚠️</span>
-      <span class="mensaje">No hay resultados disponibles en este momento</span>
-    `;
-    carrusel.appendChild(mensajeError);
-    return;
+class BannerDeportivo {
+  constructor() {
+    this.currentIndex = 0;
+    this.resultados = [];
+    this.intervalId = null;
+    this.duracionPorResultado = 5000; // 5 segundos por resultado
   }
 
-  // Eliminar el estilo anterior si existe
-  const oldStyle = document.getElementById('banner-animation-style');
-  if (oldStyle) {
-    oldStyle.remove();
-  }
-
-  const duracionPorResultado = 5;
-  const duracionTotal = resultados.length * duracionPorResultado;
-  
-  // Crear nuevo elemento de estilo
-  const styleElement = document.createElement('style');
-  styleElement.id = 'banner-animation-style';
-  
-  // Definir la animación base
-  let cssRules = `
-    @keyframes slide-item {
-      0%, 5% {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-      10%, 40% {
-        transform: translateX(0);
-        opacity: 1;
-      }
-      45%, 100% {
-        transform: translateX(-100%);
-        opacity: 0;
-      }
+  actualizarBanner(resultados) {
+    this.resultados = resultados;
+    const carrusel = document.querySelector('.banner-deportivo .carrusel');
+    carrusel.innerHTML = '';
+    
+    if (!resultados || resultados.length === 0) {
+      this.mostrarError(carrusel, 'No hay resultados disponibles en este momento');
+      return;
     }
-  `;
-  
-  // Crear los elementos del partido
-  resultados.forEach((partido, index) => {
+
+    // Crear elementos para cada resultado
+    resultados.forEach((partido, index) => {
+      const partidoElement = this.crearElementoPartido(partido);
+      carrusel.appendChild(partidoElement);
+    });
+
+    // Iniciar rotación
+    this.iniciarRotacion();
+  }
+
+  crearElementoPartido(partido) {
     const partidoElement = document.createElement('div');
     partidoElement.className = 'partido';
     const deporteIcon = obtenerIconoDeporte(partido.deporte);
     
+    let resultadoTexto = partido.estado === 'pre' ? 'vs' : partido.resultado;
+    
     partidoElement.innerHTML = `
       <span class="deporte-icon">${deporteIcon}</span>
       <span class="equipo-local">${partido.equipoLocal}</span>
-      <span class="resultado ${partido.enVivo ? 'en-vivo' : ''}">${partido.resultado}</span>
+      <span class="resultado ${partido.enVivo ? 'en-vivo' : ''}">${resultadoTexto}</span>
       <span class="equipo-visitante">${partido.equipoVisitante}</span>
+      ${partido.estado === 'pre' ? `<span class="hora-partido">${partido.hora}</span>` : ''}
     `;
     
-    // Calcular el delay para cada elemento
-    const delay = index * duracionPorResultado;
-    
-    // Agregar reglas específicas para este elemento
-    cssRules += `
-      .banner-deportivo .carrusel .partido:nth-child(${index + 1}) {
-        animation: slide-item ${duracionTotal}s linear infinite;
-        animation-delay: -${delay}s;
-      }
-    `;
-    
-    carrusel.appendChild(partidoElement);
-  });
-  
-  styleElement.textContent = cssRules;
-  document.head.appendChild(styleElement);
-}
+    return partidoElement;
+  }
 
-async function inicializarBannerDeportivo() {
-  const carrusel = document.querySelector('.banner-deportivo .carrusel');
-  
-  carrusel.innerHTML = `
-    <div class="partido estado-carga">
-      <span class="deporte-icon">⌛</span>
-      <span class="mensaje">Cargando resultados deportivos...</span>
-    </div>
-  `;
-  
-  try {
-    const resultados = await obtenerResultadosDeportivos();
-    
-    if (!resultados || resultados.length === 0) {
-      throw new Error('No se obtuvieron resultados');
-    }
-    
-    actualizarBannerDeportivo(resultados);
-    
-    setInterval(async () => {
-      try {
-        const nuevosResultados = await obtenerResultadosDeportivos();
-        actualizarBannerDeportivo(nuevosResultados);
-      } catch (error) {
-        console.error('Error en la actualización automática:', error);
-      }
-    }, 15 * 60 * 1000);
-    
-  } catch (error) {
-    console.error('Error en la inicialización del banner:', error);
+  mostrarError(carrusel, mensaje) {
     carrusel.innerHTML = `
       <div class="partido estado-error">
         <span class="deporte-icon">❌</span>
-        <span class="mensaje">Error al cargar los resultados deportivos: ${error.message}</span>
+        <span class="mensaje">${mensaje}</span>
       </div>
     `;
   }
+
+  actualizarClases() {
+    const partidos = document.querySelectorAll('.banner-deportivo .partido');
+    partidos.forEach((partido, index) => {
+      partido.classList.remove('active', 'prev', 'next');
+      if (index === this.currentIndex) {
+        partido.classList.add('active');
+      } else if (index === this.getPrevIndex()) {
+        partido.classList.add('prev');
+      } else if (index === this.getNextIndex()) {
+        partido.classList.add('next');
+      }
+    });
+  }
+
+  getPrevIndex() {
+    return this.currentIndex === 0 ? this.resultados.length - 1 : this.currentIndex - 1;
+  }
+
+  getNextIndex() {
+    return this.currentIndex === this.resultados.length - 1 ? 0 : this.currentIndex + 1;
+  }
+
+  iniciarRotacion() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+
+    this.actualizarClases();
+
+    this.intervalId = setInterval(() => {
+      this.currentIndex = this.getNextIndex();
+      this.actualizarClases();
+    }, this.duracionPorResultado);
+  }
+
+  async inicializar() {
+    const carrusel = document.querySelector('.banner-deportivo .carrusel');
+    
+    carrusel.innerHTML = `
+      <div class="partido estado-carga">
+        <span class="deporte-icon">⌛</span>
+        <span class="mensaje">Cargando resultados deportivos...</span>
+      </div>
+    `;
+    
+    try {
+      const resultados = await obtenerResultadosDeportivos();
+      
+      if (!resultados || resultados.length === 0) {
+        throw new Error('No se obtuvieron resultados');
+      }
+      
+      this.actualizarBanner(resultados);
+      
+      // Actualización periódica
+      setInterval(async () => {
+        try {
+          const nuevosResultados = await obtenerResultadosDeportivos();
+          this.actualizarBanner(nuevosResultados);
+        } catch (error) {
+          console.error('Error en la actualización automática:', error);
+        }
+      }, 15 * 60 * 1000); // 15 minutos
+      
+    } catch (error) {
+      console.error('Error en la inicialización del banner:', error);
+      this.mostrarError(carrusel, `Error al cargar los resultados deportivos: ${error.message}`);
+    }
+  }
 }
 
-document.addEventListener("DOMContentLoaded", inicializarBannerDeportivo);
+// Inicialización cuando el DOM está listo
+document.addEventListener("DOMContentLoaded", () => {
+  const banner = new BannerDeportivo();
+  banner.inicializar();
+});

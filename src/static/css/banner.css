@@ -6,15 +6,21 @@
   padding: 0;
   box-sizing: border-box;
 }
-/*Banner*/
+
+/* Banner principal */
 .banner-deportivo {
   width: 100%;
-  height: 100px;
-  background-color: rgba(64,64,64, 1);
+  height: 80px; /* Reducido para mejor control */
+  background: #1a1a1a;
+  color: white;
   overflow: hidden;
-  position: relative;
+  position: fixed; /* Asegura posición fija en la parte inferior */
+  bottom: 0;
+  left: 0;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
 
+/* Contenedor del carrusel */
 .banner-deportivo .carrusel {
   width: 100%;
   height: 100%;
@@ -22,9 +28,9 @@
   overflow: hidden;
 }
 
+/* Elementos individuales (partidos) */
 .banner-deportivo .partido {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -32,14 +38,36 @@
   top: 0;
   left: 0;
   padding: 0 20px;
+  background-color: transparent;
+  gap: 15px;
+  visibility: hidden; /* Inicialmente oculto */
   opacity: 0;
-  pointer-events: none;
-  background-color: rgba(64,64,64, 1);
+  transform: translateX(100%);
+  transition: transform 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
 }
 
+.banner-deportivo .partido.active {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.banner-deportivo .partido.prev {
+  visibility: visible;
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.banner-deportivo .partido.next {
+  visibility: visible;
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+/* Equipos */
 .banner-deportivo .equipo-local,
 .banner-deportivo .equipo-visitante {
-  font-weight: bold;
+  font-weight: 500;
   color: white;
   font-size: 16px;
   flex: 1;
@@ -47,53 +75,42 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0 10px;
+  max-width: 200px; /* Limita el ancho máximo */
+  min-width: 100px; /* Asegura un ancho mínimo */
 }
 
+/* Resultado */
 .banner-deportivo .resultado {
   font-size: 20px;
-  color: #008000;
+  color: #00ff88;
   padding: 0 15px;
   flex: 0 0 auto;
-  min-width: 80px;
+  min-width: 60px;
+  text-align: center;
+  font-weight: bold;
+  position: relative; /* Para el indicador en vivo */
+}
+
+/* Icono del deporte */
+.banner-deportivo .deporte-icon {
+  font-size: 24px;
+  flex: 0 0 auto;
+  width: 32px;
   text-align: center;
 }
 
-.banner-deportivo .deporte-icon {
-  margin-right: 10px;
-  font-size: 20px;
-  flex: 0 0 auto;
-}
-
-.banner-deportivo .resultado.en-vivo {
-  color: #ff4444;
-  animation: parpadeo 1s infinite;
-}
-
-@keyframes parpadeo {
-  50% { opacity: 0.5; }
-}
-
-/* Estados especiales */
+/* Estados de carga y error */
 .banner-deportivo .estado-carga,
-.banner-deportivo .estado-error,
-.banner-deportivo .mensaje-error {
+.banner-deportivo .estado-error {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  color: white;
   font-size: 16px;
   position: absolute;
-  top: 0;
-  left: 0;
   opacity: 1;
-  background-color: rgba(64, 64, 64, 0.8);
-}
-
-.banner-deportivo .estado-error {
-  background-color: rgba(255, 0, 0, 0.1);
+  background-color: rgba(26, 26, 26, 0.95);
 }
 
 .banner-deportivo .mensaje {
@@ -101,11 +118,65 @@
   white-space: nowrap;
 }
 
+/* Animaciones */
 @keyframes rotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-.banner-deportivo .estado-carga .deporte-icon {
-  animation: rotate 2s linear infinite;
+@keyframes parpadeo {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Indicador en vivo */
+.resultado.en-vivo::before {
+  content: '●';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  color: #ff4444;
+  animation: parpadeo 1s infinite;
+}
+
+/* Partidos futuros */
+.partido-futuro {
+  background: rgba(0, 128, 255, 0.05);
+}
+
+.partido-futuro .resultado {
+  color: #888;
+}
+
+/* Hora del partido */
+.hora-partido {
+  font-size: 14px;
+  color: #00ff88;
+  padding-left: 15px;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  flex: 0 0 auto;
+  min-width: 80px;
+}
+
+/* Estado de error */
+.estado-error {
+  color: #ff4444;
+}
+
+/* Mejora de la animación del carrusel */
+@keyframes slide-item {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  10%, 90% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
 }

@@ -17,6 +17,25 @@ const SPORTS_CONFIG = {
   }
 };
 
+function getDateRange() {
+  const today = new Date();
+  const pastDate = new Date(today);
+  pastDate.setDate(today.getDate() - 2);
+  const futureDate = new Date(today);
+  futureDate.setDate(today.getDate() + 2);
+
+
+  // Formato YYYYMMDD que requiere ESPN
+  function formatDate(date) {
+    return date.toISOString().split('T')[0].replace(/-/g, '');
+  }
+
+  return {
+    start: formatDate(pastDate),
+    end: formatDate(futureDate)
+  };
+}
+
 const fetchWithTimeout = async (url, timeout = 8000) => {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
@@ -43,23 +62,47 @@ const fetchWithTimeout = async (url, timeout = 8000) => {
   }
 }
 
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos
+let lastFetchTime = 0;
+let cachedResults = null;
+
 export async function obtenerResultadosDeportivos() {
+  
+// Si tenemos datos en caché y no han pasado 5 minutos
+  if (cachedResults && (Date.now() - lastFetchTime) < CACHE_DURATION) {
+    return cachedResults;
+  }
+  
   try {
 // Primero intenta obtener de la base de datos
+
+    //log temporal
+    console.log('Iniciando obtención de resultados');
+    
     const response = await fetch('/api/resultados-deportivos/');
     const resultadosDB = await response.json();
-        
+    
+    //log temporal
+    console.log('Resultados de DB:', resultadosDB);
+    
     if (resultadosDB && resultadosDB.length > 0) 
     {
       return resultadosDB;
     }
+  
+  //log temporal
+  console.log('No hay datos en DB, intentando obtener de ESPN');
+  
 // Si no hay datos en DB, obtén de ESPN
     const resultados = []
+    const dateRange = getDateRange();
         
     for (const sport of Object.values(SPORTS_CONFIG)) {
       for (const league of sport.leagues) {
         try {
-          const url = `https://site.api.espn.com/apis/site/v2/sports/${sport.sport}/${league}/scoreboard`;
+          const dateRange = getDateRange();
+          const url = `https://site.api.espn.com/apis/site/v2/sports/${sport.sport}/${league}/scoreboard?dates=${dateRange.start}-${dateRange.end}`;
+          console.log('Intentando obtener datos de:', url);
           const response = await fetchWithTimeout(url);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -69,22 +112,26 @@ export async function obtenerResultadosDeportivos() {
             console.warn(`No hay eventos para la liga ${league}`);
             continue;
           }
-          data.events.forEach(event => {const status = event.status.type.state;
-          if (status === 'in' || status === 'post') 
-          {
+          data.events.forEach(event => {
+            const status = event.status.type.state;
+            const fecha = new Date(event.date);
             const local = event.competitions[0].competitors[0];
             const visitante = event.competitions[0].competitors[1];
+// Procesamos todos los eventos (pasados, en vivo y futuros)
             resultados.push({
               deporte: sport.sport,
               equipoLocal: local.team.abbreviation || local.team.shortDisplayName,
               equipoVisitante: visitante.team.abbreviation || visitante.team.shortDisplayName,
-              resultado: `${local.score}-${visitante.score}`,
-              enVivo: status === 'in'});
-          }
+              resultado: status === 'pre' ? 'vs' : `${local.score}-${visitante.score}`,
+              enVivo: status === 'in',
+              estado: status, // 'pre' para futuros, 'in' para en vivo, 'post' para terminados
+              fecha: fecha.toISOString(),
+              hora: fecha.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })
+            });
           });
         } catch (leagueError) {
           console.error(`Error al obtener datos de la liga ${league}:`, leagueError);
-                continue;
+          continue;
         }
       }
     }
@@ -97,6 +144,11 @@ export async function obtenerResultadosDeportivos() {
         },
         body: JSON.stringify(resultados)
       });
+
+  // Actualizar caché
+      lastFetchTime = Date.now();
+      cachedResults = resultados;
+      
       return resultados;
     }
   } catch (error) {
