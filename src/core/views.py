@@ -18,11 +18,23 @@ from .models import ResultadoDeportivo
 from django.views.decorators.http import require_http_methods
 import json
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
 
 # Create your views here.
 def home(request):
     return render(request, 'index.html')
-    
+
+#Endpoint para limpiar resultados antiguos
+@csrf_exempt
+@require_http_methods(["POST"])
+def limpiar_resultados(request):
+    try:
+        limite_tiempo = timezone.now() - timezone.timedelta(hours=24)
+        eliminados, _ = ResultadoDeportivo.objects.filter(fecha_actualizacion__lt=limite_tiempo).delete()
+        return JsonResponse({"status": "success", "eliminados": eliminados})
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)}, status=400)
+        
 @csrf_exempt
 @require_http_methods(["GET", "POST"])
 def resultados_deportivos(request):
@@ -69,3 +81,7 @@ def resultados_deportivos(request):
             'hora': r['hora']
         } for r in resultados]
         return JsonResponse(resultados_formateados, safe=False)
+
+def HistoriaLaboral(request):
+    # Lógica para obtener datos del historial laboral
+    return render(request, 'HistoriaLaboral.html')

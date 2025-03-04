@@ -30,10 +30,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from core.views import resultados_deportivos
+from core.views import resultados_deportivos, HistoriaLaboral,limpiar_resultados
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('api/resultados-deportivos/',resultados_deportivos, name='resultados_deportivos'),
+    path('api/limpiar-resultados/', limpiar_resultados, name='limpiar_resultados')
 ]

@@ -17,4 +17,5 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('HistoriaLaboral/', views.HistoriaLaboral, name='HistoriaLaboral'),
 ]

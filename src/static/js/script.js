@@ -94,7 +94,7 @@ function crearBotonesAcceso() {
   const modal = crearModal();
   
   const botones = [
-    { texto: "Historial Laboral", url: "#historial-laboral", tipo: "interno"},
+    { texto: "Historial Laboral", url: "HistoriaLaboral/", tipo: "externo"},
     { texto: "Proyectos", url: "#proyectos", tipo: "interno"},
     { texto: "Redes Sociales", tipo: "modal"}
   ];
@@ -111,6 +111,8 @@ function crearBotonesAcceso() {
         }
       }else if (boton.tipo === "modal"){
         modal.style.display = "block";
+      }else if (boton.tipo === "externo"){
+        window.location.href = boton.url;
       }
     };
     

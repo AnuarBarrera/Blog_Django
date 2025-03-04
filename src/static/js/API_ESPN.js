@@ -89,7 +89,11 @@ export async function obtenerResultadosDeportivos() {
   
   try {
 // Primero intenta obtener de la base de datos
-
+    
+    // *** Paso 1: Ejecutar limpieza de resultados antiguos ***
+    console.log('Eliminando resultados antiguos...');
+    await fetch('/api/limpiar-resultados/', { method: 'POST' });
+    
     //log temporal
     console.log('Iniciando obtención de resultados');
     
