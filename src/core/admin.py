@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import ExperienciaLaboral, Proyecto, Skill
 
-# Register your models here.
+admin.site.register(ExperienciaLaboral)
+admin.site.register(Proyecto)
+admin.site.register(Skill)
+

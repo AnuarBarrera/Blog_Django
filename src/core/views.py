@@ -19,12 +19,14 @@ from django.views.decorators.http import require_http_methods
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
+from .models import ExperienciaLaboral, Proyecto, Skill
 
 # Create your views here.
 def home(request):
     return render(request, 'index.html')
 
 #Endpoint para limpiar resultados antiguos
+#Views Banner Deportivo
 @csrf_exempt
 @require_http_methods(["POST"])
 def limpiar_resultados(request):
@@ -82,6 +84,15 @@ def resultados_deportivos(request):
         } for r in resultados]
         return JsonResponse(resultados_formateados, safe=False)
 
+#Views CV virtual
 def HistoriaLaboral(request):
-    # Lógica para obtener datos del historial laboral
-    return render(request, 'HistoriaLaboral.html')
+
+    experiencias = ExperienciaLaboral.objects.all()
+    proyectos = Proyecto.objects.all()
+    skills = Skill.objects.all()
+
+    return render(request, 'HistoriaLaboral.html', {
+        'experiencias': experiencias,
+        'proyectos': proyectos, 
+        'skills': skills
+    })

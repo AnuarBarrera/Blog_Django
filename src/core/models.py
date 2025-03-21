@@ -13,8 +13,11 @@
 """
 
 from django.db import models
+from djongo import models
+from bson import ObjectId
 
 # Create your models here.
+#Model Banner Deportivo
 class ResultadoDeportivo(models.Model):
     ESTADO_CHOICES = [
         ('pre', 'Próximo'),
@@ -47,3 +50,46 @@ class ResultadoDeportivo(models.Model):
     def limpiar_resultados_antiguos(cls):
         limite_tiempo = timezone.now() - timezone.timedelta(hours=24)
         cls.objects.filter(fecha_actualizacion__lt=limite_tiempo).delete()
+
+#Model CV virtual  
+class Skill(models.Model):
+    TIPO_CHOICES = [
+        ('HARD', 'Habilidad Técnica'),
+        ('SOFT', 'Habilidad Blanda')
+    ]
+    
+    NIVEL_CHOICES = [
+        (1, 'Básico'),
+        (2, 'Intermedio'),
+        (3, 'Avanzado')
+    ]
+    
+    nombre = models.CharField(max_length=100)
+    tipo = models.CharField(max_length=4, choices=TIPO_CHOICES)
+    nivel = models.IntegerField(choices=NIVEL_CHOICES)
+    descripcion = models.TextField(help_text="Describe cómo has aplicado esta habilidad y logros relacionados")
+    
+    def __str__(self):
+        return f"{self.nombre} - {self.get_nivel_display()}"
+
+class Proyecto(models.Model):
+    nombre = models.CharField(max_length=200)
+    descripcion = models.TextField()
+    tecnologias = models.ManyToManyField(Skill)
+    fecha = models.DateField()
+    url = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return self.nombre
+
+class ExperienciaLaboral(models.Model):
+    _id = models.ObjectIdField(primary_key=True, default=ObjectId)  # Asegura que use ObjectId
+    empresa = models.CharField(max_length=200)
+    cargo = models.CharField(max_length=200)
+    fecha_inicio = models.DateField()
+    fecha_fin = models.DateField(null=True, blank=True)
+    en_curso = models.BooleanField(default=False)
+    descripcion = models.TextField()
+
+    def __str__(self):
+        return f"{self.cargo} en {self.empresa}"

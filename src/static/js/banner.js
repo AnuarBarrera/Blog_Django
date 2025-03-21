@@ -119,7 +119,7 @@ class BannerDeportivo {
     const carrusel = document.querySelector('.banner-deportivo .carrusel');
     
     carrusel.innerHTML = `
-      <div class="partido estado-carga">
+      <div class="banner-deportivo estado-carga">
         <span class="deporte-icon">⌛</span>
         <span class="mensaje">Cargando resultados deportivos...</span>
       </div>

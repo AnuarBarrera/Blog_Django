@@ -1,56 +1,154 @@
 <!--
-  Copyright [2005] [anuar eduardo barrera yeeben]
- 
- Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
+Copyright [2005] [anuar eduardo barrera yeeben]
 
-   http://www.apache.org/licenses/LICENSE-2.0
- 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and limitations under the License.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and limitations under the License.
 -->
 
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="My personal blog, profile and portfolio from applications">
-  <meta name="keywords"content="CV,Curriculum,Portafolio,Developer,Anuar,Barrera,Yeeben">
-  <link rel="icon" type="image/png" href="{% static 'images/icon.ico' %}">
-  
-  <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/banner.css' %}">
-    
-  <title>Curriculum</title>
-  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="My profile and portfolio from applications">
+<meta name="keywords"content="CV,Curriculum,Portafolio,Developer,Anuar,Barrera,Yeeben">
+<link rel="icon" type="image/png" href="{% static 'images/icon.ico' %}">
+
+<link rel="stylesheet" href="{% static 'css/CVvirtual.css' %}">
+
+<title>Curriculum Vitae</title>
+
 </head>
 
 <body>
-  <!--Contenedor pincipal para mantener el footer abajo-->
-  <div class="contenedor">
-    <header>
-      <h1 class="Title-CV">En construccion</h1>
-      <div class = "texto-empleos">
-        <p class="Parrafo-empleos"></p>
-      </div>
-    </header>
+    <div class="container">
+        <!-- Barra lateral izquierda -->
+        <aside class="sidebar">
+            <img src="/static/images/CV.jpg" alt="Foto de perfil" class="profile-photo">
+            
+            <!-- (Hard Skills) -->
+            <div class="sidebar-section">
+                <h2 class="section-title">Habilidades Técnicas</h2>
+                
+                <div class="skill-item">
+                  {% for skill in skills %}
+                  {% if skill.tipo == 'HARD' %}
+                    <div class="skill-name">
+                      <span>{{ skill.nombre }}</span>
+                      <span>{% if skill.nivel == 1 %}Básico{% elif skill.nivel == 2 %}Intermedio{% else %}Avanzado{% endif %}</span>
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-level-fill level-{% if skill.nivel == 1 %}basic{% elif skill.nivel == 2 %}intermediate{% else %}advanced{% endif %}"></div>
+                    </div>
+                    
+                    <p class="skill-description">{{ skill.descripcion}}</p>
+                    {% endif %}
+                    {% empty %}
+                    <p>No hay habilidades técnicas para mostrar</p>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Soft Skills -->
+            <div class="sidebar-section">
+                <h2 class="section-title">Habilidades Blandas</h2>
+                <div class="skill-item">
+                  {% for skill in skills %}
+                  {% if skill.tipo == 'SOFT' %}
+                    <div class="skill-name">
+                        <span>{{ skill.nombre }}</span>
+                        <span>{% if skill.nivel == 1 %}Básico{% elif skill.nivel == 2 %}Intermedio{% else %}Avanzado{% endif %}</span>
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-level-fill level-{% if skill.nivel == 1 %}basic{% elif skill.nivel == 2 %}intermediate{% else %}advanced{% endif %}"></div>
+                    </div>
+                    <p class="skill-description">{{ skill.descripcion}}</p>
+                    {% endif %}
+                    {% empty %}
+                    <p>No hay habilidades blandas para mostrar</p>
+                    {% endfor %}
+                </div>
 
-    <!--banner deportivo-->
-    <footer>
-      <div class="banner-deportivo">
-        <div class="carrusel">
+            </div>
+            
+            <a href="#" class="pdf-download">Descargar PDF</a>
+            
+        </aside>
+        
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <header class="header">
+                <h1 class="name">Anuar Eduardo Barrera Yeeben</h1>
+                <p class="title">Ingeniero de Software y Datos en formación, con
+                experiencia en el sector bancario y corporativo</p>
+            </header>
+            
+            <!-- Sección de Experiencia -->
+            <section class="content-section">
+                <h2 class="content-title">Experiencia Laboral</h2>
+                
+                <div class="experience-item">
+                    <div class="item-header">
+                      {% for experiencia in experiencias %}
+                        <div>
+                            <h3 class="item-title">{{ experiencia.empresa }}</h3>
+                            <p class="item-subtitle">{{ experiencia.cargo }}</p>
+                        </div>
+                        <span class="item-date">{{experiencia.fecha_inicio|date:"d-m-Y"}} - {% if experiencia.en_curso == True %}Actualmente{% else %}{{ experiencia.fecha_fin|date:"d-m-Y" }}{% endif %}</span>
+                    </div>
+                    <div class="item-description">
+                        <p>{{ experiencia.descripcion }}</p>
+                        {% empty %}
+                        <p>No hay empleos que mostrar</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+            </section>
+            
+            <!-- Sección de Proyectos -->
+            <section class="content-section">
+                <h2 class="content-title">Proyectos</h2>
+                
+                <div class="project-item">
+                    <div class="item-header">
+                      {% for proyecto in proyectos%}
+                        <div>
+                            <h3 class="item-title">{{ proyecto.nombre }}</h3>
+                            {% if proyecto.url %}
+                            <a href="{{ proyecto.url }}" class="btn btn-primary">Ver proyecto</a>
+                            {% else %}
+                            <button class="btn btn-secondary disabled">Próximamente</button>
+                            {% endif %}
+                            <p class="item-subtitle">{% for tecnologia in proyecto.tecnologias.all %}{{ tecnologia.nombre }}{% if not forloop.last %}, {% endif %}{% empty %}Sin tecnologías{% endfor %}</p>
+                        </div>
+                        <span class="item-date">{{ proyecto.fecha|date:"d-m-Y"}}</span>
+                    </div>
+                    <div class="item-description">
+                        <p>{{ proyecto.descripcion }}</p>
+                        {% empty %}
+                        <p>No hay proyectos por mostrar</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+            </section>
+            
+        </main>
+        
+        <!-- Banner inferior -->
+        <div class="banner">
+            www.anuarbarrera.site | contacto.neia@gmail.com | +52 5513942119
         </div>
-      </div>
-    </footer>
-  </div>
-  
-  <!-- JavaScript -->
-  
-  <script type="module" src="{% static 'js/banner.js' %}"></script>
+    </div>
 </body>
-  
+
 </html>
