@@ -13,8 +13,8 @@
 */
 
 // Variables
-const titulo = "Bienvenido a mi Blog";
-const parrafoIntroductorio = "Bienvenido a mi CV en línea. Soy Anuar Barrera, un desarrollador apasionado por crear soluciones tecnológicas innovadoras.Te invito a consultar mi historia laboral y mi portafolio de proyectos para que tengas una mejor nocion de mis conocimientos y aptitudes.";
+const titulo = "Bienvenido a mi Universo Digital";
+const parrafoIntroductorio = "Soy Anuar Barrera, un desarrollador apasionado por crear soluciones tecnológicas innovadoras.Te invito a consultar mi historia laboral y mi portafolio de proyectos para que tengas una mejor nocion de mis conocimientos y aptitudes.";
 const redesSociales = [
   { nombre: "GitHub", url: "https://www.github.com/AnuarBarrera" },
   { nombre: "LinkedIn", url: "https://www.linkedin.com/in/anuarbarrera" },
@@ -94,9 +94,9 @@ function crearBotonesAcceso() {
   const modal = crearModal();
   
   const botones = [
-    { texto: "Historial Laboral", url: "HistoriaLaboral/", tipo: "externo"},
-    { texto: "Proyectos", url: "#proyectos", tipo: "interno"},
-    { texto: "Redes Sociales", tipo: "modal"}
+    { texto: "HISTORIA LABORAL", url: "HistoriaLaboral/", tipo: "externo"},
+    { texto: "PROYECTOS", url: "#proyectos", tipo: "interno"},
+    { texto: "REDES SOCIALES", tipo: "modal"}
   ];
   
   botones.forEach((boton) => {

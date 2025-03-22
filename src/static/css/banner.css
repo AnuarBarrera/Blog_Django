@@ -12,6 +12,11 @@
  See the License for the specific language governing permissions and limitations under the License.
 */
 
+/*estilos del footer*/
+.footer{
+  background-color: yellow;
+}
+
 /* Reset básico */
 .banner-deportivo *,
 .banner-deportivo *::before,
@@ -24,7 +29,7 @@
 /* Banner principal */
 .banner-deportivo {
   width: 100%;
-  height: 80px; /* Reducido para mejor control */
+  height: 200px; /* Reducido para mejor control */
   background: #1a1a1a;
   color: white;
   overflow: hidden;
@@ -83,7 +88,7 @@
 .banner-deportivo .equipo-visitante {
   font-weight: 500;
   color: white;
-  font-size: 16px;
+  font-size: 35px;
   flex: 1;
   text-align: center;
   white-space: nowrap;
@@ -95,7 +100,7 @@
 
 /* Resultado */
 .banner-deportivo .resultado {
-  font-size: 20px;
+  font-size: 35px;
   color: #00ff88;
   padding: 0 15px;
   flex: 0 0 auto;
@@ -107,7 +112,7 @@
 
 /* Icono del deporte */
 .banner-deportivo .deporte-icon {
-  font-size: 24px;
+  font-size: 30px;
   flex: 0 0 auto;
   width: 32px;
   text-align: center;
@@ -121,7 +126,7 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  font-size: 16px;
+  font-size: 30px;
   position: absolute;
   opacity: 1;
   background-color: rgba(26, 26, 26, 0.95);
@@ -166,7 +171,7 @@
 
 /* Hora del partido */
 .hora-partido {
-  font-size: 14px;
+  font-size: 25px;
   color: #00ff88;
   padding-left: 15px;
   border-left: 1px solid rgba(255, 255, 255, 0.2);
