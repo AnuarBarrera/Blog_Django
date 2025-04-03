@@ -25,13 +25,6 @@ body{
   overflow: hidden; /* importante para controlar el carrusel*/
 }
 
-/*estilos para la cabecera*/
-.Fila1{
-  margin-bottom: 0;
-  border-bottom: 0;
-  padding-bottom: 0;
-}
-
 /* estilos para el header*/
 .header {
   height: 100px;
@@ -40,7 +33,6 @@ body{
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  margin-bottom: 10px;
 }
 
 .icon img {
@@ -66,34 +58,25 @@ body{
 }
 
 /*estilos para el titulo*/
-
 .Title{
   text-align: center;
-  background: linear-gradient(to left, #D8BFD8,#FFFCAD);
+  background: linear-gradient(to right, #0000ff,#00ffff);
   background-clip: white;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 68px;
   font-family: Tahoma;
-  margin: 50px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  width: 100%;
 }
 
 /* estilos para el texto de entrada*/
 .texto-entrada{
-  font-size: 35px;
+  font-size: 25px;
   font-family: Gotham, Sans-Serif;
-  color: #FFFF;
+  color: white;
   text-align: center;
-  height: 120px;
-  margin-top: 30px;
-  margin-bottom: 0;
-  border-bottom: 0;
-  padding-bottom: 0;
-}
-
-.Parrafo-entrada{
-  height: auto;
-  line-height: 1.50;
 }
 
 /* estilos para los botones de links*/
@@ -303,8 +286,8 @@ body{
 
 .modal-close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     background: none;
     border: none;
     color: #fff;
@@ -330,4 +313,18 @@ body{
 /* Animación para el modal de redes sociales */
 #modal-redes .modal-content {
     animation: modalSlide 0.3s ease-out;
+}
+
+/* estilos para la consola*/
+.fila2{
+  display: flex;
+  flex-wrap: center;
+}
+
+.lista-scripts{
+  width: 50%;
+}
+
+.consola{
+  width: 50%;
 }

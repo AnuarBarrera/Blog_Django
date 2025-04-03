@@ -31,7 +31,7 @@
   position: fixed; /* Asegura posición fija en la parte inferior */
   bottom: 0;
   left: 0;
-  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+ /* z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
 
 /* Contenedor del carrusel */
@@ -150,7 +150,7 @@
   top: -10px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 8px;
+  font-size: 18px;
   color: #ff4444;
   animation: parpadeo 1s infinite;
 }
@@ -166,6 +166,14 @@
 
 /* Hora del partido */
 .hora-partido {
+  font-size: 25px;
+  color: #00ff88;
+  padding-left: 15px;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  flex: 0 0 auto;
+  min-width: 80px;
+}
+.fecha-partido {
   font-size: 25px;
   color: #00ff88;
   padding-left: 15px;

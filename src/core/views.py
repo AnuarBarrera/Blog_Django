@@ -22,6 +22,7 @@ from django.utils import timezone
 from .models import ExperienciaLaboral, Proyecto, Skill
 
 # Create your views here.
+#View del home
 def home(request):
     return render(request, 'index.html')
 
@@ -36,7 +37,8 @@ def limpiar_resultados(request):
         return JsonResponse({"status": "success", "eliminados": eliminados})
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
-        
+
+#Carga y consulta de la DB
 @csrf_exempt
 @require_http_methods(["GET", "POST"])
 def resultados_deportivos(request):
@@ -86,9 +88,8 @@ def resultados_deportivos(request):
 
 #Views CV virtual
 def HistoriaLaboral(request):
-
-    experiencias = ExperienciaLaboral.objects.all()
-    proyectos = Proyecto.objects.all()
+    experiencias = ExperienciaLaboral.objects.order_by('-fecha_inicio')
+    proyectos = Proyecto.objects.order_by('-fecha')
     skills = Skill.objects.all()
 
     return render(request, 'HistoriaLaboral.html', {
@@ -96,3 +97,9 @@ def HistoriaLaboral(request):
         'proyectos': proyectos, 
         'skills': skills
     })
+
+#views protectos
+def proyectos(request):
+  #logica para la pagina
+  return render(request, 'proyectos.html',{
+  })

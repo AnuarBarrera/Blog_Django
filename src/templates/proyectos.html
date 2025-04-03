@@ -23,18 +23,17 @@
   <link rel="icon" type="image/png" href="{% static 'images/icon.ico' %}">
   
   <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/images.css' %}">
+    <link rel="stylesheet" href="{% static 'css/proyectos.css' %}">
     <link rel="stylesheet" href="{% static 'css/banner.css' %}">
     
-  <title>My Blog by Anuar</title>
+  <title>Proyectos</title>
   
 </head>
 
 <body>
   <!--Contenedor pincipal para mantener el footer abajo-->
   <div class="contenedor">
-    <div class="Fila1">
+    <div class="fila1">
       <header class="header">
         <div class="icon">
           <img src="{% static 'images/image.png' %}" alt="icon">
@@ -51,21 +50,26 @@
       </div>
     </div>
     
-    <!-- contenedor de carrusel de imagenes-->
-    <main class="contenedor-fotos">
-    <div class="fotos"></div>
-    </main>
+    
+    <div class="fila2">
+      <div class="lista-scripts">
+        <p style="color:white;">aqui va la lista de script</p>
+      </div>
+      <div class="consola">
+        <p style="color: white;">aqui va la consola</p>
+      </div>
+    </div>
     
     <!--banner deportivo-->
-      <div class="banner-deportivo">
-        <div class="carrusel">
-        </div>
+    <div class="banner-deportivo">
+      <div class="carrusel">
       </div>
+    </div>
   
   <!-- JavaScript -->
-  <script type="module" src="{% static 'js/script.js' %}"></script>
-  <script type="module" src="{% static 'js/images.js' %}"></script>
+  <script type="module" src="{% static 'js/proyectos.js' %}"></script>
   <script type="module" src="{% static 'js/banner.js' %}"></script>
+  
 </body>
   
 </html>

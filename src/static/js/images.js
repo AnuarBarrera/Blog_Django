@@ -37,6 +37,7 @@ const fotos2 = [
 // Funciones
 function crearCarruselFotos(fotos,contenedor, tiempoPorFoto = 3) {
   let carruselElement = contenedor.querySelector(".carrusel");
+  //si no existe el contenido, lo creamos
   if(!carruselElement){
     carruselElement = document.createElement("div");
     carruselElement.classList.add("carrusel");
@@ -44,6 +45,7 @@ function crearCarruselFotos(fotos,contenedor, tiempoPorFoto = 3) {
   }
   carruselElement.innerHTML='';
   
+  //contenedor para el carrusel
   const wrapper = document.createElement("div");
   wrapper.classList.add("carrusel-wrapper");
   const fotosDobles = [...fotos, ...fotos];

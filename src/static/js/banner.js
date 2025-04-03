@@ -12,6 +12,7 @@
  See the License for the specific language governing permissions and limitations under the License.
 */
 
+//importamos la funcion directamente de nuestra API
 import { obtenerResultadosDeportivos } from '/static/js/API_ESPN.js';
 
 function obtenerIconoDeporte(deporte) {
@@ -25,6 +26,7 @@ function obtenerIconoDeporte(deporte) {
   return iconos[deporte] || iconos.default;
 }
 
+//creamos una clase para ejecutar el banner
 class BannerDeportivo {
   constructor() {
     this.currentIndex = 0;
@@ -32,7 +34,7 @@ class BannerDeportivo {
     this.intervalId = null;
     this.duracionPorResultado = 5000; // 5 segundos por resultado
   }
-
+//creamos el contenedor para el banner
   actualizarBanner(resultados) {
     this.resultados = resultados;
     const carrusel = document.querySelector('.banner-deportivo .carrusel');
@@ -52,7 +54,8 @@ class BannerDeportivo {
     // Iniciar rotación
     this.iniciarRotacion();
   }
-
+  
+//funcion para crear cada elemento partido
   crearElementoPartido(partido) {
     const partidoElement = document.createElement('div');
     partidoElement.className = 'partido';
@@ -65,7 +68,14 @@ class BannerDeportivo {
       <span class="equipo-local">${partido.equipoLocal}</span>
       <span class="resultado ${partido.enVivo ? 'en-vivo' : ''}">${resultadoTexto}</span>
       <span class="equipo-visitante">${partido.equipoVisitante}</span>
-      ${partido.estado === 'pre' ? `<span class="hora-partido">${partido.hora}</span>` : ''}
+      ${partido.estado === 'pre' ? `<span
+      class="hora-partido">${partido.hora}</span><span
+      class="fecha-partido">${new
+      Date(partido.fecha).toLocaleDateString('es-ES', {day: '2-digit', month:
+      '2-digit', year: 'numeric'})}</span>` : partido.estado === 'post' ? `<span
+      class="fecha-partido">${new
+      Date(partido.fecha).toLocaleDateString('es-ES', {day: '2-digit', month:
+      '2-digit', year: 'numeric'})}</span>` : ''}
     `;
     
     return partidoElement;
@@ -80,6 +90,7 @@ class BannerDeportivo {
     `;
   }
 
+//actualizamos conciderando el estado del partido
   actualizarClases() {
     const partidos = document.querySelectorAll('.banner-deportivo .partido');
     partidos.forEach((partido, index) => {
@@ -93,11 +104,12 @@ class BannerDeportivo {
       }
     });
   }
-
+  
+//funcion para crear el carrusel desde el primer elemento
   getPrevIndex() {
     return this.currentIndex === 0 ? this.resultados.length - 1 : this.currentIndex - 1;
   }
-
+//funcion para confirmar el siguiente elemento y mantener el ciclo del baner
   getNextIndex() {
     return this.currentIndex === this.resultados.length - 1 ? 0 : this.currentIndex + 1;
   }

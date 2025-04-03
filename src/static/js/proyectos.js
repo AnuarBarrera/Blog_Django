@@ -13,8 +13,8 @@
 */
 
 // Variables
-const titulo = "Bienvenido a mi Universo Digital";
-const parrafoIntroductorio = "Soy Anuar Barrera, un desarrollador apasionado por crear soluciones tecnológicas innovadoras. Te invito a consultar mi historia laboral y mi portafolio de proyectos para que tengas una mejor nocion de mis conocimientos y aptitudes.";
+const titulo = "Portafolio de Proyectos";
+const parrafoIntroductorio = "EN CONSTRUCCION";
 const redesSociales = [
   { nombre: "GitHub", url: "https://www.github.com/AnuarBarrera" },
   { nombre: "LinkedIn", url: "https://www.linkedin.com/in/anuarbarrera" },
@@ -112,7 +112,6 @@ function crearBotonesAcceso() {
     // Definir los botones
     const botones = [
         { texto: "HISTORIA LABORAL", url: "HistoriaLaboral/", tipo: "externo"},
-        { texto: "PROYECTOS", url: "proyectos/", tipo: "externo"},
         { texto: "REDES SOCIALES", tipo: "modal"}
     ];
     

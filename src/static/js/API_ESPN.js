@@ -31,6 +31,7 @@ const SPORTS_CONFIG = {
   }
 };
 
+//funcion para crear el elemento fecha
 function getDateRange() {
   const today = new Date();
   const pastDate = new Date(today);
@@ -49,7 +50,7 @@ function getDateRange() {
     end: formatDate(futureDate)
   };
 }
-
+//funcion fetch para llamar a la API
 const fetchWithTimeout = async (url, timeout = 8000) => {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
@@ -76,10 +77,12 @@ const fetchWithTimeout = async (url, timeout = 8000) => {
   }
 }
 
+//Configuracion de cache
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos
 let lastFetchTime = 0;
 let cachedResults = null;
 
+//funcion de la API
 export async function obtenerResultadosDeportivos() {
   
 // Si tenemos datos en caché y no han pasado 5 minutos
@@ -91,36 +94,31 @@ export async function obtenerResultadosDeportivos() {
 // Primero intenta obtener de la base de datos
     
     // *** Paso 1: Ejecutar limpieza de resultados antiguos ***
-    console.log('Eliminando resultados antiguos...');
     await fetch('/api/limpiar-resultados/', { method: 'POST' });
     
-    //log temporal
-    console.log('Iniciando obtención de resultados');
-    
+    // consulta de resultados en la DB
     const response = await fetch('/api/resultados-deportivos/');
     const resultadosDB = await response.json();
     
-    //log temporal
-    console.log('Resultados de DB:', resultadosDB);
-    
+    //Si hay resultados en la DB los carga
     if (resultadosDB && resultadosDB.length > 0) 
     {
       return resultadosDB;
     }
   
-  //log temporal
-  console.log('No hay datos en DB, intentando obtener de ESPN');
-  
-// Si no hay datos en DB, obtén de ESPN
+// Si no hay datos en DB, obtiene de ESPN
     const resultados = []
     const dateRange = getDateRange();
-        
+    //itera en deportes
     for (const sport of Object.values(SPORTS_CONFIG)) {
+      //itera en ligas
       for (const league of sport.leagues) {
         try {
+          //consulta la fecha
           const dateRange = getDateRange();
+          //crea la url para hacer la peticion a partir de los datos anteriores
           const url = `https://site.api.espn.com/apis/site/v2/sports/${sport.sport}/${league}/scoreboard?dates=${dateRange.start}-${dateRange.end}`;
-          console.log('Intentando obtener datos de:', url);
+          //hace la peticion
           const response = await fetchWithTimeout(url);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
