@@ -167,10 +167,7 @@ See the License for the specific language governing permissions and limitations 
     </div>
     
     <!-- script para controlar el contenido visible de los skills-->
-    <script>
-      document.querySelectorAll('.skill-description').forEach(description => {description.addEventListener('click', function() {this.classList.toggle('expanded');});
-      });
-    </script>
+    <script type="module" src="{% static 'js/skills.js' %}"></script>
     
 </body>
 

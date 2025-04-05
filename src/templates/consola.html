@@ -1,0 +1,65 @@
+{% extends 'proyectos.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/consola.css' %}">
+<link rel="stylesheet" href="{% static 'CodeMirror/lib/codemirror.css' %}">
+<link rel="stylesheet" href="{% static 'CodeMirror/theme/dracula.css' %}">
+{% endblock extra_css%}
+
+{% block content %}
+<div class="container">
+    <h1>Consola Interactiva</h1>
+    
+    <div class="row">
+        <div class="col-md-9">
+            <div class="console-container">
+                <div class="console-output-container">
+                    <h4>Salida</h4>
+                    <textarea id="console-output"></textarea>
+                </div>
+                
+                <div class="console-input-container">
+                    <h4>Entrada</h4>
+                    <textarea id="console-input"></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="scripts-container">
+                <h4>Scripts Disponibles</h4>
+                <ul id="scripts-list" class="list-group">
+                    {% for script in scripts %}
+                    <li class="list-group-item" data-script="{{ script.name }}">
+                        {{ script.name }}
+                        <span class="badge {% if script.type == 'python' %}badge-primary{% else %}badge-warning{% endif %}">
+                            {{ script.type }}
+                        </span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                
+                <div class="help-text mt-4">
+                    <h5>Comandos Disponibles:</h5>
+                    <ul>
+                        <li><code>run &lt;script_name&gt;</code> - Ejecuta un script</li>
+                        <li><code>list</code> - Muestra la lista de scripts</li>
+                        <li><code>help</code> - Muestra la ayuda</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% csrf_token %}
+{% endblock content%}
+
+{% block extra_js %}
+<script src="{% static 'CodeMirror/lib/codemirror.js' %}"></script>
+<script src="{% static 'CodeMirror/mode/shell.js' %}"></script>
+<script src="{% static 'js/consola.js' %}"></script>
+<script src="{% static 'CodeMirror/addon/closebrackets.js' %}"></script>
+  <script src="{% static 'CodeMirror/addon/matchbrackets.js' %}"></script>
+{% endblock extra_js %}

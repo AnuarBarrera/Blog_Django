@@ -112,7 +112,7 @@ function crearBotonesAcceso() {
     // Definir los botones
     const botones = [
         { texto: "HISTORIA LABORAL", url: "HistoriaLaboral/", tipo: "externo"},
-        { texto: "PROYECTOS", url: "proyectos/", tipo: "externo"},
+        { texto: "PROYECTOS", url: "console/", tipo: "externo"},
         { texto: "REDES SOCIALES", tipo: "modal"}
     ];
     

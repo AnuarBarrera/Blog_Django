@@ -25,6 +25,8 @@
   <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/proyectos.css' %}">
     <link rel="stylesheet" href="{% static 'css/banner.css' %}">
+    {% block extra_css %}{% endblock extra_css %}
+    
     
   <title>Proyectos</title>
   
@@ -33,6 +35,7 @@
 <body>
   <!--Contenedor pincipal para mantener el footer abajo-->
   <div class="contenedor">
+    
     <div class="fila1">
       <header class="header">
         <div class="icon">
@@ -56,8 +59,9 @@
         <p style="color:white;">aqui va la lista de script</p>
       </div>
       <div class="consola">
-        <p style="color: white;">aqui va la consola</p>
+        {% block content %}{% endblock content %}
       </div>
+        
     </div>
     
     <!--banner deportivo-->
@@ -66,10 +70,12 @@
       </div>
     </div>
   
+  </div>
+  
   <!-- JavaScript -->
   <script type="module" src="{% static 'js/proyectos.js' %}"></script>
   <script type="module" src="{% static 'js/banner.js' %}"></script>
-  
+  {% block extra_js %}{% endblock extra_js %}
 </body>
   
 </html>

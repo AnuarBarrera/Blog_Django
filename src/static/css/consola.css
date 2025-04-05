@@ -1,0 +1,96 @@
+/* Estilos para la consola interactiva */
+
+.console-container {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.console-output-container, .console-input-container {
+    margin-bottom: 15px;
+}
+
+.console-output-container h4, .console-input-container h4 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Asegura que CodeMirror tenga una altura adecuada */
+.CodeMirror {
+    height: auto;
+    min-height: 150px;
+    border: 1px solid #ccc;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+}
+
+/* Estilos para la salida del console */
+.console-output-container .CodeMirror {
+    min-height: 300px;
+    background-color: #2d2d2d;
+}
+
+/* Estilos para la lista de scripts */
+.scripts-container {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    background-color: #f9f9f9;
+}
+
+.scripts-container h4 {
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#scripts-list {
+    margin-bottom: 15px;
+}
+
+#scripts-list li {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#scripts-list li:hover {
+    background-color: #eaeaea;
+}
+
+.badge-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: #333;
+}
+
+/* Estilos para la sección de ayuda */
+.help-text {
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+}
+
+.help-text h5 {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.help-text ul {
+    padding-left: 20px;
+}
+
+.help-text code {
+    background-color: #f0f0f0;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 90%;
+}

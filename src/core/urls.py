@@ -18,6 +18,6 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('HistoriaLaboral/', views.HistoriaLaboral, name='HistoriaLaboral'),
-    path("proyectos/", views.proyectos,
-      name="proyectos.html"),
+    path('console/', views.console_view, name='console'),
+    path('execute-script/', views.execute_script, name='execute_script'),
 ]

@@ -20,6 +20,9 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 from .models import ExperienciaLaboral, Proyecto, Skill
+import os
+import subprocess
+from django.conf import settings
 
 # Create your views here.
 #View del home
@@ -98,8 +101,100 @@ def HistoriaLaboral(request):
         'skills': skills
     })
 
-#views protectos
-def proyectos(request):
-  #logica para la pagina
-  return render(request, 'proyectos.html',{
-  })
+#views de la consola de proyectos
+
+# Directorio donde están almacenados tus scripts
+SCRIPTS_DIR = os.path.join(settings.BASE_DIR, 'scripts')
+
+def get_available_scripts():
+    """
+    Obtiene la lista de scripts disponibles en el directorio de scripts
+    """
+    scripts = []
+    # Listamos los scripts de Python (*.py) y JavaScript (*.js)
+    for file in os.listdir(SCRIPTS_DIR):
+        if file.endswith('.py') or file.endswith('.js'):
+            scripts.append({
+                'name': file,
+                'type': 'python' if file.endswith('.py') else 'javascript'
+            })
+    return scripts
+
+def console_view(request):
+    """
+    Vista principal que muestra la consola interactiva
+    """
+    scripts = get_available_scripts()
+    context = {'scripts': scripts}
+    template_name = 'consola.html' # Nombre del template a renderizar
+
+   # Renderizar
+    response = render(request, template_name, context)
+    return response
+
+def execute_script(request):
+    """
+    Endpoint para ejecutar scripts desde la consola
+    """
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        command = data.get('command', '')
+        
+        # Verificamos si el comando es para ejecutar un script
+        if command.startswith('run '):
+            script_name = command[4:].strip()  # Extrae el nombre del script
+            
+            # Verificamos que el script exista
+            script_path = os.path.join(SCRIPTS_DIR, script_name)
+            if not os.path.exists(script_path):
+                return JsonResponse({'output': f'Error: El script "{script_name}" no existe.'})
+            
+            # Ejecutamos el script según su tipo
+            if script_name.endswith('.py'):
+                try:
+                    # Ejecutar script de Python
+                    result = subprocess.run(['python', script_path], 
+                                           capture_output=True, 
+                                           text=True)
+                    output = result.stdout
+                    if result.stderr:
+                        output += f"\nError: {result.stderr}"
+                except Exception as e:
+                    output = f"Error al ejecutar el script: {str(e)}"
+            
+            elif script_name.endswith('.js'):
+                try:
+                    # Ejecutar script de JavaScript con Node.js
+                    result = subprocess.run(['node', script_path], 
+                                           capture_output=True, 
+                                           text=True)
+                    output = result.stdout
+                    if result.stderr:
+                        output += f"\nError: {result.stderr}"
+                except Exception as e:
+                    output = f"Error al ejecutar el script: {str(e)}"
+            
+            return JsonResponse({'output': output})
+        
+        # Si no es un comando para ejecutar script, podemos manejar otros comandos
+        elif command == 'list':
+            # Comando para listar los scripts disponibles
+            scripts = get_available_scripts()
+            output = "Scripts disponibles:\n"
+            for script in scripts:
+                output += f"- {script['name']} ({script['type']})\n"
+            return JsonResponse({'output': output})
+        
+        elif command == 'help':
+            # Comando de ayuda
+            output = """Comandos disponibles:
+- run <script_name>: Ejecuta el script especificado
+- list: Muestra la lista de scripts disponibles
+- help: Muestra esta ayuda
+"""
+            return JsonResponse({'output': output})
+        
+        else:
+            return JsonResponse({'output': f'Comando desconocido: {command}\nEscribe "help" para ver los comandos disponibles.'})
+    
+    return JsonResponse({'output': 'Método no permitido'}, status=405)
