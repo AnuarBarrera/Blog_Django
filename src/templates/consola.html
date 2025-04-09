@@ -25,7 +25,13 @@
                 </div>
             </div>
         </div>
-        
+    </div>
+</div>
+
+{% csrf_token %}
+{% endblock content%}
+
+{% block instrucciones %}      
         <div class="col-md-3">
             <div class="scripts-container">
                 <h4>Scripts Disponibles</h4>
@@ -50,11 +56,7 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-{% csrf_token %}
-{% endblock content%}
+{% endblock instrucciones %}
 
 {% block extra_js %}
 <script src="{% static 'CodeMirror/lib/codemirror.js' %}"></script>

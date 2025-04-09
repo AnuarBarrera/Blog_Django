@@ -22,10 +22,13 @@
 /*estilos para el body general*/
 body{
   background: black;
-  overflow: hidden; /* importante para controlar el carrusel*/
 }
 
 /* estilos para el header*/
+.fila1{
+  height: 250px;
+}
+
 .header {
   height: 100px;
   background: linear-gradient(to right, #FFA07A, #00ffff);
@@ -60,14 +63,14 @@ body{
 /*estilos para el titulo*/
 .Title{
   text-align: center;
-  background: linear-gradient(to right, #0000ff,#00ffff);
+  background: linear-gradient(to left, #D8BFD8,#FFFCAD);
   background-clip: white;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 68px;
   font-family: Tahoma;
   margin-bottom: 5px;
-  margin-top: 5px;
+  margin-top: 10px;
   width: 100%;
 }
 
@@ -77,6 +80,9 @@ body{
   font-family: Gotham, Sans-Serif;
   color: white;
   text-align: center;
+  margin-top: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 /* estilos para los botones de links*/
@@ -317,16 +323,6 @@ body{
 
 /* estilos para la consola*/
 .fila2{
-  display: flex;
-  flex-wrap: center;
-}
-
-.lista-scripts{
-  width: 50%;
-}
-
-.consola{
-  width: 50%;
-  margin-right: 10px;
-  margin-left: 10px;
+  display: grid;
+  grid-auto-rows: auto auto;
 }

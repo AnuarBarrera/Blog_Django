@@ -13,8 +13,8 @@
 */
 
 // Variables
-const titulo = "Portafolio de Proyectos";
-const parrafoIntroductorio = "EN CONSTRUCCION";
+const titulo = "Proyectos";
+const parrafoIntroductorio = "Bienvenido, esta es una consola interactiva de uso sencillo. Puedes ejecutar cualquiera de los scripts disponibles escribiendo el comando run seguido del nombre del script y presionando Enter, o simplemente haciendo clic en un script de la lista y luego presionando Enter. También puedes usar los comandos integrados para obtener más información sobre el entorno.";
 const redesSociales = [
   { nombre: "GitHub", url: "https://www.github.com/AnuarBarrera" },
   { nombre: "LinkedIn", url: "https://www.linkedin.com/in/anuarbarrera" },
@@ -111,7 +111,8 @@ function crearBotonesAcceso() {
 
     // Definir los botones
     const botones = [
-        { texto: "HISTORIA LABORAL", url: "HistoriaLaboral/", tipo: "externo"},
+        {texto: "REGRESAR A INICIO", url: "/", tipo: "externo"},
+        { texto: "HISTORIA LABORAL", url: "/HistoriaLaboral/", tipo: "externo"},
         { texto: "REDES SOCIALES", tipo: "modal"}
     ];
     
