@@ -14,7 +14,7 @@
 
 // Variables
 const titulo = "Proyectos";
-const parrafoIntroductorio = "Bienvenido, esta es una consola interactiva de uso sencillo. Puedes ejecutar cualquiera de los scripts disponibles escribiendo el comando run seguido del nombre del script y presionando Enter, o simplemente haciendo clic en un script de la lista y luego presionando Enter. También puedes usar los comandos integrados para obtener más información sobre el entorno.";
+const parrafoIntroductorio = "Esta es una consola interactiva de uso sencillo. Para ejecutar un script, escribe el comando run seguido del nombre del script en la consola de entrada y presiona Enter. También puedes hacer clic en uno de los scripts disponibles en la lista y luego presionar Enter. El resultado se mostrará en la consola de salida. Además, puedes utilizar los comandos integrados para obtener más información sobre el entorno.";
 const redesSociales = [
   { nombre: "GitHub", url: "https://www.github.com/AnuarBarrera" },
   { nombre: "LinkedIn", url: "https://www.linkedin.com/in/anuarbarrera" },

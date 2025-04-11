@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
         mode: 'text',
         theme: 'dracula',
         lineNumbers: true,
-        readOnly: true
+        readOnly: true,
+        lineWrapping: true
     });
     
     // Configurar manejo de teclas para ejecutar comandos
@@ -32,9 +33,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Función para ejecutar comandos
     function executeCommand(command) {
+      
+      const trimmedCommand = command.trim(); // Quita espacios al inicio/final
+      
+      // --- Manejo del comando 'clear' ---
+      
+      if (trimmedCommand.toLowerCase() === 'clear') { 
+        // Si el comando es 'clear' (ignorando mayúsculas/minúsculas)
+        
+        // Limpia directamente el editor de SALIDA
+        outputEditor.setValue(''); // Establece el contenido a vacío
+
+        return; 
+      }
+      
+    // --- Fin del manejo de 'clear' ---
+    
+    
         // Mostrar el comando en la salida
         appendToOutput('> ' + command + '\n');
-        
+    
         // Enviar comando al servidor
         fetch('/execute-script/', {
             method: 'POST',
@@ -49,9 +67,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Mostrar la salida en el editor
             appendToOutput(data.output + '\n');
         })
-        .catch(error => {
-            appendToOutput('Error: ' + error + '\n');
-        });
     }
     
     // Función para agregar texto a la salida
@@ -81,7 +96,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    // Ejecutar el comando 'help' al cargar para mostrar instrucciones
-    executeCommand('help');
 });

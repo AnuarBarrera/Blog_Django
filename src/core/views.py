@@ -191,6 +191,7 @@ def execute_script(request):
 - run <script_name>: Ejecuta el script especificado
 - list: Muestra la lista de scripts disponibles
 - help: Muestra esta ayuda
+- clear: limpia la consola
 """
             return JsonResponse({'output': output})
         

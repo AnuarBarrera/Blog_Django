@@ -10,18 +10,17 @@
 {% block content %}
 <div class="container">
     <h1>Consola Interactiva</h1>
-    
     <div class="row">
         <div class="col-md-9">
             <div class="console-container">
-                <div class="console-output-container">
-                    <h4>Salida</h4>
-                    <textarea id="console-output"></textarea>
-                </div>
-                
                 <div class="console-input-container">
                     <h4>Entrada</h4>
                     <textarea id="console-input"></textarea>
+                </div>
+                
+                <div class="console-output-container">
+                    <h4>Salida</h4>
+                    <textarea id="console-output"></textarea>
                 </div>
             </div>
         </div>
@@ -52,6 +51,7 @@
                         <li><code>run &lt;script_name&gt;</code> - Ejecuta un script</li>
                         <li><code>list</code> - Muestra la lista de scripts</li>
                         <li><code>help</code> - Muestra la ayuda</li>
+                        <li><code>clear</code> - limpia la consola</li>
                     </ul>
                 </div>
             </div>
