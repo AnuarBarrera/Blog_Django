@@ -20,7 +20,7 @@ See the License for the specific language governing permissions and limitations 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="My profile and portfolio from applications">
 <meta name="keywords"content="CV,Curriculum,Portafolio,Developer,Anuar,Barrera,Yeeben">
-<link rel="icon" type="image/png" href="{% static 'images/icon.ico' %}">
+<link rel="icon" type="image/x-icon" href="{% static 'images/icon.ico' %}">
 
 <!-- css -->
 <link rel="stylesheet" href="{% static 'css/CVvirtual.css' %}">
@@ -30,7 +30,7 @@ See the License for the specific language governing permissions and limitations 
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="container">
         <!-- Barra lateral izquierda -->
         <aside class="sidebar">
             <img src="/static/images/CV.jpg" alt="Foto de perfil" class="profile-photo">
@@ -88,7 +88,7 @@ See the License for the specific language governing permissions and limitations 
     </div>
 </div>
         <!-- boton para descargar pdf-->
-            <a href="#" class="pdf-download">Descargar PDF</a>
+            <a onclick="downloadCV()" class="pdf-download">Descargar PDF</a>
             
         </aside>
         
@@ -169,6 +169,14 @@ See the License for the specific language governing permissions and limitations 
     
     <!-- script para controlar el contenido visible de los skills-->
     <script type="module" src="{% static 'js/skills.js' %}"></script>
+    <!-- script para generar el pdf-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+      function downloadCV() {
+        const cvElement = document.getElementById('container');
+        html2pdf().from(cvElement).save('CV_virtual.pdf');
+      }
+    </script>
     
 </body>
 

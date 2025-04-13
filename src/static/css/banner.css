@@ -28,10 +28,8 @@
   background: #1a1a1a;
   color: white;
   overflow: hidden;
-  position: fixed; /* Asegura posición fija en la parte inferior */
   bottom: 0;
   left: 0;
- /* z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
 
 /* Contenedor del carrusel */

@@ -22,14 +22,13 @@
 /*estilos para el body general*/
 body{
   background: black;
-  overflow: hidden; /* importante para controlar el carrusel*/
 }
 
 /*estilos para la cabecera*/
 .Fila1{
-  margin-bottom: 0;
-  border-bottom: 0;
-  padding-bottom: 0;
+  margin-bottom: 50px;
+  border-bottom: 50px;
+  padding-bottom: 50px;
 }
 
 /* estilos para el header*/

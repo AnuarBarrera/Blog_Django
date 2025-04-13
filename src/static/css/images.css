@@ -17,7 +17,7 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  height: 800px; /* Altura fija basada en tus imágenes */
+  height: 600px; /* Altura fija basada en tus imágenes */
 }
 
 .fotos {
@@ -44,8 +44,8 @@
 }
 
 .fotos .carrusel-wrapper img{
-  width: 1000px;
-  height:800px;
+  width: 800px;
+  height: 600px;
   object-fit: cover;
   flex-shrink: 0;
   margin-right: 20px;
