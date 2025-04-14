@@ -333,7 +333,7 @@ body{
 
 @media (max-width: 920px){
   body{
-    overflow: hidden;
+    overflow: scroll;
   }
   
   .Fila1{

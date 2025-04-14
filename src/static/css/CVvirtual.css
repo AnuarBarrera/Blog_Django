@@ -284,4 +284,21 @@ body {
   .boton-flotante {
     display: none !important;
   }
+  
+  .btn{
+    display: none !important;
+  }
+  
+  .btn-primary{
+    display: none !important;
+  }
+  
+  .btn-secondary{
+    display: none !important;
+  }
+  
+  .skill-description {
+  font-size: 10px;
+  display: absolute !important;
+  }
 }
