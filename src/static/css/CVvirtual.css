@@ -298,7 +298,6 @@ body {
   }
   
   .skill-description {
-  font-size: 10px;
-  display: absolute !important;
+    font-size: 10px;
   }
 }
