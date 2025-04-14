@@ -64,3 +64,19 @@
         transform: translateX(calc(-100% / 2)); /* Solo se mueve la mitad ya que las imágenes están duplicadas */
     }
 }
+
+@media (max-width: 920px){
+  
+  .contenedor-fotos { 
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 300px; 
+  }
+  
+  .fotos .carrusel-wrapper img{
+    width: 400px;
+    height: 300px;
+  }
+  
+}

@@ -279,3 +279,9 @@ body {
 .boton-flotante:hover {
     background-color: #0056b3;
 }
+
+@media print {
+  .boton-flotante {
+    display: none !important;
+  }
+}
