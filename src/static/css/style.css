@@ -338,8 +338,8 @@ body{
   
   .Fila1{
     margin-bottom: 20px;
+    margin-bottom: 20px;
     border-bottom: 20px;
-    padding-bottom: 20px;
   }
   
   .Title{
@@ -365,5 +365,11 @@ body{
     top: 10px;
     right: 10px;
     font-size: 0.5rem;
+  }
+}
+
+@media (max-width: 720px){
+  body{
+    overflow: hidden;
   }
 }

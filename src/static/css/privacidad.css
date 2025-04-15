@@ -1,0 +1,62 @@
+.cookie-float {
+  position: fixed;
+  bottom: 100px; /* deja espacio para el botón Inicio */
+  right: 20px;
+  background-color: #1e1e1e;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  max-width: 300px;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  display: none; /* JS lo activa si es necesario */
+  animation: slide-up 0.4s ease-out;
+}
+
+.cookie-float a {
+  color: #c9e4ff;
+  text-decoration: underline;
+}
+
+.cookie-float button {
+  margin-top: 10px;
+  background-color: #c9e4ff;
+  color: #121212;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cookie-float button:hover {
+  background-color: #a3d5ff;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* boton flotante */
+.boton-flotante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease;
+    z-index: 1000;
+}
+
+.boton-flotante:hover {
+    background-color: #0056b3;
+}

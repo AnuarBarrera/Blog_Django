@@ -20,4 +20,5 @@ urlpatterns = [
     path('HistoriaLaboral/', views.HistoriaLaboral, name='HistoriaLaboral'),
     path('console/', views.console_view, name='console'),
     path('execute-script/', views.execute_script, name='execute_script'),
+    path('politica-privacidad/', views.politica_privacidad, name='politica_privacidad')
 ]

@@ -23,6 +23,7 @@
   <link rel="icon" type="image/x-icon" href="{% static 'images/icon.ico' %}">
   
   <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/privacidad.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/images.css' %}">
     <link rel="stylesheet" href="{% static 'css/banner.css' %}">
@@ -30,6 +31,15 @@
   <title>My Blog by Anuar</title>
   
 </head>
+
+<!-- aviso de Privacidad-->
+<div id="cookie-banner" class="cookie-float">
+  <p>
+    Este sitio usa cookies y recopila tu IP con fines estadísticos y de seguridad.  
+    <a href="/politica-privacidad" target="_blank">Ver política de privacidad</a>.
+  </p>
+  <button onclick="aceptarCookies()">Aceptar</button>
+</div>
 
 <body>
   <!--Contenedor pincipal para mantener el footer abajo-->
@@ -66,6 +76,7 @@
   <script type="module" src="{% static 'js/script.js' %}"></script>
   <script type="module" src="{% static 'js/images.js' %}"></script>
   <script type="module" src="{% static 'js/banner.js' %}"></script>
+  <script src="{% static 'js/privacidad.js' %}"></script>
 </body>
   
 </html>

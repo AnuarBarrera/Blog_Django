@@ -201,8 +201,8 @@
   }
 }
 
-/*para laptop*/
-@media (min-width:650px){
+/*para laptops*/
+@media (min-width: 650px){
   .carrusel{
     position: center;
   }

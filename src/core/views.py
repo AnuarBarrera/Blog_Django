@@ -199,3 +199,7 @@ def execute_script(request):
             return JsonResponse({'output': f'Comando desconocido: {command}\nEscribe "help" para ver los comandos disponibles.'})
     
     return JsonResponse({'output': 'Método no permitido'}, status=405)
+    
+#politica de privacidad
+def politica_privacidad(request):
+  return render(request, 'AvisoPrivacidad.html')
