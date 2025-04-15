@@ -84,7 +84,7 @@ See the License for the specific language governing permissions and limitations 
           </div>
         </div>
         <!-- boton para descargar pdf-->
-        <a onclick="downloadCV()" class="pdf-download">Descargar PDF</a>
+        <a onclick="window.print()" class="pdf-download">Descargar PDF</a>
       </aside>
         
       <!-- titulo-->
@@ -159,14 +159,5 @@ See the License for the specific language governing permissions and limitations 
     
   <!-- script para controlar el contenido visible de los skills-->
     <script type="module" src="{% static 'js/skills.js' %}"></script>
-  <!-- script para generar el pdf-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script>
-      function downloadCV() {
-        const cvElement = document.getElementById('container');
-        html2pdf().from(cvElement).save('CV_virtual.pdf');
-      }
-    </script>
-    
 </body>
 </html>

@@ -281,23 +281,96 @@ body {
 }
 
 @media print {
-  .boton-flotante {
+  /* Oculta elementos que no deben aparecer en el PDF */
+  
+  .skill-description,
+  .boton-flotante,
+  .boton-flotante,
+  .pdf-download,
+  .btn,
+  a[href]:after {
     display: none !important;
   }
-  
-  .btn{
-    display: none !important;
-  }
-  
-  .btn-primary{
-    display: none !important;
-  }
-  
-  .btn-secondary{
-    display: none !important;
-  }
-  
-  .skill-description {
+
+  body {
+    background: white !important;
+    color: #000 !important;
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.1;
     font-size: 10px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .sidebar {
+    width: 40%;
+    padding: 20px;
+    background: #f3f3f3;
+    color: #000;
+    box-sizing: border-box;
+  }
+  
+  .main-content {
+    width: 60%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  h1.name {
+    font-size: 15px;
+    color: #222;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+  }
+
+  h2.content-title {
+    color: #000;
+    font-size: 13px;
+    margin-top: 30px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+  }
+
+  .skill-item,
+  .project-item {
+    margin-bottom: 13px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .item-title {
+    font-size: 10px;
+    font-weight: bold;
+    color: #000;
+  }
+
+  .item-subtitle,
+  .item-date,
+  .item-description {
+    color: #444;
+  }
+  
+  .banner {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #555;
+  }
+  
+  /* Elimina encabezados/pies del navegador al imprimir */
+  @page {
+    margin: 20mm;
+    size: A4;
   }
 }
