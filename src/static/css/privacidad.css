@@ -60,3 +60,44 @@
 .boton-flotante:hover {
     background-color: #0056b3;
 }
+
+.legal-wrapper {
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  color: #121212;
+  padding: 40px;
+  border-radius: 8px;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 15px;
+  line-height: 1.8;
+  box-shadow: 0 0 10px rgba(0,0,0,0.08);
+}
+
+.legal-wrapper h1 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #222;
+}
+
+.legal-wrapper h2 {
+  font-size: 20px;
+  margin-top: 30px;
+  color: #444;
+}
+
+.legal-wrapper p, .legal-wrapper li {
+  margin-bottom: 15px;
+}
+
+.legal-wrapper ul {
+  padding-left: 20px;
+}
+
+.legal-wrapper .fecha {
+  font-size: 13px;
+  color: #888;
+  text-align: center;
+  margin-bottom: 30px;
+}
